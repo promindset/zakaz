@@ -25,7 +25,6 @@ exports.default = {
         return pool.query(text, (err, res) => {
             if (err)
                 throw err;
-            console.log(res.rows[0]);
             pool.end();
         });
     }

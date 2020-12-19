@@ -1,5 +1,5 @@
 import express, { query, Request, Response } from 'express'
-import db from '../db'
+// import db from '../../db'
 const router: express.Router = express.Router()
 
 interface User {
@@ -27,7 +27,7 @@ router.post('/', (req: Request, res: Response) => {
     userType
   }: User = req.body
   console.log(req.body)
-  db.insert("INSERT INTO users (first_name) VALUES ('fawzi2')")
+  // db.insert("INSERT INTO users (first_name) VALUES ('fawzi2')")
 })
 
 export default router

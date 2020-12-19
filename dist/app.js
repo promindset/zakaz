@@ -5,15 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = require("dotenv");
 const routes_1 = require("./routes");
-const body_parser_1 = __importDefault(require("body-parser"));
-dotenv_1.config(); // dotenv
-// Defined Methods
-const app = express_1.default();
-// Middlewares
-app.use(body_parser_1.default.json());
-// Routes
-app.use('/register', routes_1.register);
-// Server Port
-app.listen(process.env.PORT, () => console.log(`Server Started on port ${process.env.PORT}`));
+class App {
+    constructor() {
+        this.routes = new routes_1.Routes();
+        this.app = express_1.default();
+        this.config();
+        this.routes.init(this.app);
+    }
+    config() {
+        this.app.use(express_1.default.json());
+        this.app.use(express_1.default.urlencoded({ extended: true }));
+    }
+}
+exports.default = new App().app;

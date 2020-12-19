@@ -1,19 +1,21 @@
 // Imports
 import express from 'express'
-import { config } from 'dotenv'
-import { register } from './routes'
-import bodyParser from 'body-parser'
+import { Routes } from './routes'
 
-config() // dotenv
+class App {
+  public app: express.Application
+  public routes: Routes = new Routes()
 
-// Defined Methods
-const app: express.Application = express()
+  constructor() {
+    this.app = express()
+    this.config()
+    this.routes.init(this.app)
+  }
 
-// Middlewares
-app.use(bodyParser.json())
+  private config(): void {
+    this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+  }
+}
 
-// Routes
-app.use('/register', register)
-
-// Server Port
-app.listen(process.env.PORT, () => console.log(`Server Started on port ${process.env.PORT}`))
+export default new App().app

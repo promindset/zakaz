@@ -1,31 +1,61 @@
 # Zakaz project
 
-## Please update me later and write some good documentation
-
 ## Setup up Database locally
 
-install postgres locally
+1 - install postgres locally
 
-`brew install postgresql`
-
-create database zakazDB
-
-`initdb <path>/zakazDB`
-
-start database
-
-`pg_ctl -D <path>/zakazDB start`
-
-
-`psql <PATH_TO_DB>/zakazDB`
-
+```bash
+brew install postgresql
 ```
-CREATE ROLE admin WITH PASSWORD "admin123";
-CREATE DATABASE userDB;
+
+2 - create database zakazDB
+
+```bash
+initdb <path>/zakazDB
+```
+
+3 - start database
+
+```bash
+pg_ctl -D <path>/zakazDB start
+```
+
+4 - connect to postgres db and setup up roles and new db for our app
+
+```bash
+psql postgres
+```
+
+```sql
+CREATE DATABASE "zakaz-dev";
+
+CREATE ROLE admin WITH PASSWORD 'admin123';
+
 ALTER USER admin WITH SUPERUSER CREATEDB CREATEROLE LOGIN BYPASSRLS REPLICATION;
-GRANT CONNECT ON userDB database_name TO admin;
+
+GRANT CONNECT ON DATABASE "zakaz-dev" TO admin;
 ```
 
-psql -U admin -d userdb -W
-<Enter Password>
-CREATE TABLE user (id SERIAL NOT NULL PRIMARY KEY, first_name varchar(16), last_name varchar(16), phone_number INT, password varchar(256), create_date TIMESTAMPTZ NOT NULL DEFAULT NOW (),last_update varchar(32), last_login varchar(32), gender varchar(8), user_type varchar(16), birth_date varchar(32));
+5 - connect as the new user
+
+```bash
+psql -U admin -d zakaz-dev -W
+```
+
+```sql
+CREATE TABLE user (
+  id SERIAL NOT NULL PRIMARY KEY,
+  firstName varchar(16),
+  lastName varchar(16),
+  phoneNumber INT,
+  password varchar(256),
+  dateCreated TIMESTAMPTZ NOT NULL DEFAULT NOW (),
+  lastUpdated varchar(32),
+  lastLogin varchar(32),
+  gender varchar(8),
+  userType varchar(16),
+  birthDate varchar(32)
+ );
+```
+
+---
