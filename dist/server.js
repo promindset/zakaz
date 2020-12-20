@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const config_1 = require("./config");
 app_1.default
-    .listen(config_1.port, () => {
-    console.log('Server running on port: ', config_1.port);
+    .listen(config_1.Config.port, () => {
+    console.log('Server running on port: ', config_1.Config.port);
 })
     .on('error', (e) => console.log('error: ', e));

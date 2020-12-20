@@ -1,8 +1,8 @@
 import app from './app'
-import { port } from './config'
+import { Config } from './config'
 
 app
-  .listen(port, () => {
-    console.log('Server running on port: ', port)
+  .listen(Config.port, () => {
+    console.log('Server running on port: ', Config.port)
   })
   .on('error', (e) => console.log('error: ', e))
